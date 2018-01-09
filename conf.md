@@ -64,3 +64,15 @@ password=''
 //在入口文件中更改配置格式为ini格式
 define('CONF_EXT', '.ini');
 ```
+
+9、配置文件的加载顺序是?<br>
+答:惯例配置->应用配置->扩展配置->场景配置->模块配置->动态配置
+
+10、惯例配置文件在哪里?<br>
+答:`thinkphp/convention.php`
+
+11、如何加载配置文件?<br>
+答:
+```
+Config::load(APP_PATH.'config/config.php');
+```
