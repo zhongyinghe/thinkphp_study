@@ -113,3 +113,81 @@ Route::get('new/:id','News/read',['https'=>true]);
 ```php
 Route::get('new/:name$','News/read',['cache'=>3600]);
 ```
+
+8、可以稍微看一下资源路由和MISS路由<br>
+
+9、如何进行域名部署路由功能?<br>
+开启域名部署路由功能:
+```php
+'url_domain_deploy' =>  true
+```
+动态注册:
+```php
+// blog子域名绑定到blog模块
+Route::domain('blog','blog');
+// 完整域名绑定到admin模块
+Route::domain('admin.thinkphp.cn','admin');
+// IP绑定到admin模块
+Route::domain('114.23.4.5','admin');
+```
+配置定义注册:
+```php
+return [
+    '__domain__'=>[
+        'blog'      => 'blog',
+        // 泛域名规则建议在最后定义
+        '*.user'    =>  'user',
+        '*'         => 'book',
+    ],
+    // 下面是路由规则定义
+]
+```
+
+10、如何进行url生成?<br>
+如我的路由规则是这样:
+```php
+'test/:id' => ['index/index/test',['method' => 'get'],['id'=>'\d+']],
+'news/:year/:month/:day' => ['Index/news',['method' => 'get'],['year'=>'\d{4}','month'=>'\d{2}','day'=>'\d{1,2}']],
+'blog/:name$' => ['Index/blog',['method' => 'get']],
+'item-<name>-<id>' => ['Index/detail',['method' => 'get'],['name'=>'[a-zA-Z]+','id'=>'\d+']],
+'gds/:id' => ['Index/goods',['method' => 'get'],['ext'=>'shtml|html']],
+```
+则可以这样生成url:
+```php
+url('index/index/test',['id'=>5]); // /tp5/public/index/test/5.html
+url('Index/detail', ['name' => 'bbg', 'id' => 123]);// /tp5/public/item-bbg-123.shtml
+```
+如何要指定域名,则自动生成域名如下:
+```php
+url('Index/detail', ['name' => 'bbg', 'id' => 123],'shtml',true);
+//http://当前域名/tp5/public/item-bbg-123.shtml
+```
+手动指定域名如下:
+```php
+url('Index/detail', ['name' => 'bbg', 'id' => 123],'shtml','blog.thinkphp.cn');
+//http://blog.thinkphp.cn/tp5/public/item-bbg-123.shtml
+```
+其他示例如下:
+```php
+//路由规则:
+Route::rule('blog/:id','index/blog/read');
+//生成url:
+Url::build('index/blog/read','id=5&name=thinkphp');
+Url::build('index/blog/read',['id'=>5,'name'=>'thinkphp']);
+url('index/blog/read','id=5&name=thinkphp');
+url('index/blog/read',['id'=>5,'name'=>'thinkphp']);
+```
+11、如何设置URL后缀?
+```php
+'url_html_suffix'   => 'shtml'
+```
+
+12、设置了'url_common_param'=>true有什么用?<br>
+路由规则是这样:
+```php
+Route::rule('blog/:id','index/blog/read');
+```
+生成的url是这样:
+```php
+/index.php/blog/5.html?name=thinkphp
+```
