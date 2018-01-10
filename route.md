@@ -52,4 +52,64 @@ Route::post(['new/:id'=>'News/update','blog/:name'=>'Blog/detail']);
 //对个别路由不想完全匹配的
 Route::rule('new/:id','News/read','GET|POST',['complete_match' => false]);
 ```
+4、如何定义多个路由文件?
+```php
+// 定义路由配置文件（数组）
+'route_config_file' =>  ['route', 'route1', 'route2'],
+```
+5、有哪3个变量规则?<br>
+全局的:
+```php
+// 设置name变量规则（采用正则定义）
+Route::pattern('name','\w+');
+// 支持批量添加
+Route::pattern([
+    'name'  =>  '\w+',
+    'id'    =>  '\d+',
+]);
+```
+局部的:
+```php
+/ 定义GET请求路由规则 并设置name变量规则
+Route::get('new/:name','News/read',[],['name'=>'\w+']);
+```
+完整的url规则:
+```php
+/ 定义GET请求路由规则 并设置完整URL变量规则
+Route::get('new/:id','News/read',[],['__url__'=>'new\/\w+$']);
+```
+6、如何设置组合变量规则?
+```php
+'item-<name>-<id>' => ['Index/detail',['method' => 'get'],['name'=>'[a-zA-Z]+','id'=>'\d+']],
+```
 
+7、有哪些路由参数检测?<br>
+请求类型:
+```php
+// 检测路由规则仅GET请求有效
+Route::any('new/:id','News/read',['method'=>'get']);
+// 检测路由规则仅GET和POST请求有效
+Route::any('new/:id','News/read',['method'=>'get|post']);
+```
+后缀检测:
+```php
+Route::get('new/:id','News/read',['ext'=>'shtml|html']);
+//禁止的后缀
+// 定义GET请求路由规则 并设置禁止URL后缀为png、jpg和gif的访问
+Route::get('new/:id','News/read',['deny_ext'=>'jpg|png|gif']);
+```
+域名检测:
+```php
+// 完整域名检测 只在news.thinkphp.cn访问时路由有效
+Route::get('new/:id','News/read',['domain'=>'news.thinkphp.cn']);
+// 子域名检测
+Route::get('new/:id','News/read',['domain'=>'news']);
+```
+https检测:
+```php
+Route::get('new/:id','News/read',['https'=>true]);
+```
+缓存路由请求:
+```php
+Route::get('new/:name$','News/read',['cache'=>3600]);
+```
