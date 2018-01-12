@@ -89,3 +89,40 @@ $this->redirect('News/category', ['cate_id' => 2], 302, ['data' => 'hello']);
 //默认成功跳转对应的模板文件
 'dispatch_success_tmpl' => 'public/success',
 ```
+5、什么是空操作?<br>
+就是找不到方法时调用的方法
+```php
+public function _empty($name) {
+}
+```
+
+6、什么是空控制器?<br>
+当系统找不到控制器时调用指定的控制器<br>
+配置文件指定空控制器名称
+```php
+// 更改默认的空控制器名
+'empty_controller'      => 'MyError',
+```
+具体代码为:
+```php
+namespace app\index\controller;
+use think\Request;
+class MyError 
+{
+    public function index(Request $request)
+    {
+        //根据当前控制器名来判断要执行那个城市的操作
+        $cityName = $request->controller();
+        return $this->city($cityName);
+    }
+    
+    //注意 city方法 本身是 protected 方法
+    protected function city($name)
+    {
+        //和$name这个城市相关的处理
+         return '当前城市' . $name;
+    }
+}
+```
+
+
