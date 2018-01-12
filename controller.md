@@ -124,5 +124,58 @@ class MyError
     }
 }
 ```
+7、为什么要使用多级控制器?<br>
+是因为该控制器太复杂，代码量太多。一个控制器会让代码难于管理。<br>
+代码示例:
+```php
+<?php 
+namespace app\index\controller\one;
+class Bss {
+	public function index() {
+		return "this is index";
+	}
 
+	public function add() {
+		return "this is add";
+	}
 
+	public function edit() {
+		return "this is edit";
+	}
+}
+```
+访问示例:
+```
+http://192.168.229.150/tp5/public/index/one.bss/add
+```
+
+8、为什么要使用分层控制器?<br>
+是因为分层控制器可以被多个一般控制器所共用(如:event)，或者可以把它使用在模板中(如:widget)<br>
+代码示例:
+```php
+<?php 
+namespace app\index\event;
+class Bbs {
+	public function insert() {
+        return 'insert';
+    }
+    
+    public function update($id) {
+        return 'update:'.$id;
+    }
+    
+    public function delete($id) {
+        return 'delete:'.$id;
+    }
+}
+```
+调用示例为:
+```php
+public function bbs() {
+    //$event = \think\Loader::controller('Bbs', 'event');
+    $event = controller('Bbs', 'event');
+    echo $event->insert();
+    echo $event->update(5);
+    echo $event->delete(10);
+}
+```
