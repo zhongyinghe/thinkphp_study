@@ -187,6 +187,10 @@ url('index/blog/read',['id'=>5,'name'=>'thinkphp']);
 ```php
 Route::rule('blog/:id','index/blog/read');
 ```
+生成示例代码:
+```php
+Url::build('blog/read','id=5&name=thinkphp');
+```
 生成的url是这样:
 ```php
 /index.php/blog/5.html?name=thinkphp
