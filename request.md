@@ -47,3 +47,74 @@ dump($request->only(['name']));
 echo '请求参数,排除name';
 dump($request->except(['name']));
 ```
+4、关于GET认识<br>
+?号后面的才称之为GET变量<br>
+所以PATHINFO模式下url中的路径是不能够作为GET变量的.例如:
+```php
+http://192.168.229.150/tp5/public/findId/123.html
+```
+该url中的123是无法使用get数组获取的
+
+5、检验变量是否存在
+```php
+$hasId = Request::instance()->has('id');
+$hasName = $hasName = Request::instance()->has('name');
+```
+但是为什么对get变量不能够这样呢?
+```php
+$hasId = Request::instance()->has('id', 'get');
+$hasName = Request::instance()->has('nane', 'get');
+```
+这是因为PATHINFO模式下GET的认识(第4点);注意post的情况下是可以的.如:
+```php
+$hasId = Request::instance()->has('id', 'post');
+$hasName = Request::instance()->has('nane', 'post');
+```
+6、获取变量，推荐使用如下方式:
+```php
+$name = Request::instance()->param('name');
+```
+这样可以同时处理pathinfo模式下的GET和POST<br>
+其他获取请求参数的方式如下:
+```php
+Request::instance()->get('id'); // 获取某个get变量,pathinfo模式下是无效的
+Request::instance()->get('name'); // 获取get变量
+//上面可以使用如下代替
+input('id');
+input('name');
+Request::instance()->post('name'); // 获取某个post变量
+```
+7、对输入变量进行过滤<br>
+全局过滤:
+```php
+Request::instance()->filter('htmlspecialchars');
+Request::instance()->filter(['strip_tags','htmlspecialchars']);
+```
+具体过滤:
+```php
+Request::instance()->get('name','','htmlspecialchars'); // 获取get变量 并用htmlspecialchars函数过滤
+Request::instance()->param('username','','strip_tags'); // 获取param变量 并用strip_tags函数过滤
+Request::instance()->post('name','','org\Filter::safeHtml'); // 获取post变量 并用org\Filter类的safeHtml方法过滤
+Request::instance()->param('username','','strip_tags,strtolower'); // 获取param变量 并依次调用strip_tags、strtolower函数过滤
+Request::instance()->post('email','',FILTER_VALIDATE_EMAIL);
+```
+类型正则过滤:
+```php
+input('get.id/d');//整形
+input('post.name/s');//字符串
+input('post.ids/a');//数组
+Request::instance()->get('id/d');
+Request::instance()->get('isHas/b');//布尔
+Request::instance()->get('price/f');//浮点
+```
+8、获取部分变量或者排除部分变量<br>
+获取部分变量:
+```php
+// 只获取当前请求的id和name变量
+Request::instance()->only(['id','name']);
+```
+排除部分变量:
+```php
+// 排除id和name变量
+Request::instance()->except(['id','name']);
+```
