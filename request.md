@@ -118,3 +118,69 @@ Request::instance()->only(['id','name']);
 // 排除id和name变量
 Request::instance()->except(['id','name']);
 ```
+9、请求类型判断
+```php
+// 是否为 GET 请求
+if (Request::instance()->isGet()) echo "当前为 GET 请求";
+// 是否为 POST 请求
+if (Request::instance()->isPost()) echo "当前为 POST 请求";
+// 是否为 PUT 请求
+if (Request::instance()->isPut()) echo "当前为 PUT 请求";
+// 是否为 DELETE 请求
+if (Request::instance()->isDelete()) echo "当前为 DELETE 请求";
+// 是否为 Ajax 请求
+if (Request::instance()->isAjax()) echo "当前为 Ajax 请求";
+// 是否为 Pjax 请求
+if (Request::instance()->isPjax()) echo "当前为 Pjax 请求";
+// 是否为手机访问
+if (Request::instance()->isMobile()) echo "当前为手机访问";
+// 是否为 HEAD 请求
+if (Request::instance()->isHead()) echo "当前为 HEAD 请求";
+// 是否为 Patch 请求
+if (Request::instance()->isPatch()) echo "当前为 PATCH 请求";
+// 是否为 OPTIONS 请求
+if (Request::instance()->isOptions()) echo "当前为 OPTIONS 请求";
+// 是否为 cli
+if (Request::instance()->isCli()) echo "当前为 cli";
+// 是否为 cgi
+if (Request::instance()->isCgi()) echo "当前为 cgi";
+```
+10、请求伪装<br>
+请求类型伪装:
+```html
+<form method="post" action="">
+    <input type="text" name="name" value="Hello">
+    <input type="hidden" name="_method" value="PUT" >
+    <input type="submit" value="提交">
+</form>
+```
+伪装请求的变量名可以通过应用配置来修改:
+```php
+// 表单请求类型伪装变量
+'var_method'             => '_method',
+```
+ajax/pjax伪装
+```
+http://localhost/index?_ajax=1 
+http://localhost/index?_pjax=1 
+```
+应用配置修改:
+```php
+// 表单ajax伪装变量
+'var_ajax'               => '_ajax',
+// 表单pjax伪装变量
+'var_pjax'               => '_pjax',
+```
+11、获取头信息
+```php
+$info = Request::instance()->header();
+$agent = Request::instance()->header('user-agent');
+```
+12、伪静态配置
+```php
+'url_html_suffix' => 'shtml'//设置一个后缀
+// 多个伪静态后缀设置 用|分割
+'url_html_suffix' => 'html|shtml|xml' 
+// 关闭伪静态后缀访问
+'url_html_suffix' => false,
+```
