@@ -184,3 +184,35 @@ $agent = Request::instance()->header('user-agent');
 // 关闭伪静态后缀访问
 'url_html_suffix' => false,
 ```
+13、操作方法参数绑定
+```php
+public function read($id) {
+	return 'id='.$id;
+}
+
+public function archive($year='2018', $month="01") {
+	return 'year='.$year.'&month='.$month;
+}
+```
+按照名称绑定:<br>
+这样访问:
+```
+http://serverName/index.php/index/blog/read/id/5
+http://serverName/index.php/index/blog/archive/year/2018/month/06
+```
+按照顺序绑定:<br>
+配置文件配置为:
+```php
+// URL参数方式改成顺序解析
+'url_param_type'         => 1,
+```
+访问是这样:
+```
+http://serverName/index.php/index/blog/read/5
+http://serverName/index.php/index/blog/archive/2018/06
+```
+14、请求缓存
+```php
+/ 定义GET请求路由规则 并设置3600秒的缓存
+Route::get('new/:id','News/read',['cache'=>3600]);
+```
