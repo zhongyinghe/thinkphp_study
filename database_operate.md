@@ -25,7 +25,7 @@ $row = Db::find($query);
 4)闭包查询:
 ```php
 $rows = Db::select(function($query){
-		$query->table('userinfo')->where('uid', '>', 10);
+	$query->table('userinfo')->where('uid', '>', 10);
 });
 ```
 5)查询某一直:
@@ -39,9 +39,9 @@ $columns = Db::table('userinfo')->where('uid','>', 5)->column('username, departn
 7)分批查询:
 ```php
 Db::table('userinfo')->where('uid', '>', 2)->chunk(3, function($users){
-		foreach ($users as $user) {
-			dump($user);
-		}
-		echo '====================';
+	foreach ($users as $user) {
+		dump($user);
+	}
+	echo '====================';
 });
 ```
