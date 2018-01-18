@@ -2,3 +2,6 @@
 * 2 [配置](https://github.com/zhongyinghe/thinkphp_study/blob/master/conf.md)
 * 3 [路由](https://github.com/zhongyinghe/thinkphp_study/blob/master/route.md)
 * 4 [控制器](https://github.com/zhongyinghe/thinkphp_study/blob/master/controller.md)
+* 5 [请求](https://github.com/zhongyinghe/thinkphp_study/blob/master/request.md)
+* 6 [数据库](#)
+* 6.1 [数据库配置](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_conf.md)
