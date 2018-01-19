@@ -45,3 +45,45 @@ Db::table('userinfo')->where('uid', '>', 2)->chunk(3, function($users){
 	echo '====================';
 });
 ```
+3、插入操作<br>
+```php
+//单条插入
+$data = ['username' => 'gxx', 'departname' => '演艺部', 'created' => time()];
+Db::table('userinfo')->insert($data);
+//插入多条记录
+$datas = [
+	['username' => 'zkx', 'departname' => '演艺部', 'created' => time()],
+	['username' => 'lyf', 'departname' => '演艺部', 'created' => time()],
+	['username' => 'shuchang', 'departname' => '演艺部', 'created' => time()],
+	['username' => 'dongxuan', 'departname' => '演艺部', 'created' => time()]
+];
+Db::table('userinfo')->insertAll($datas);
+```
+4、更新操作<br>
+条件更新:
+```php
+$affectNum = Db::table('userinfo')->where('uid',15)->update(['username'=>'guanxiaohong']);
+```
+更新中有id:
+```php
+$affectNum = Db::table('userinfo')->update(['username'=>'zengkuaixuan','uid' => 16]);//uid为主键
+```
+更新某个field:
+```php
+Db::table('userinfo')->where('uid',17)->setField('username', 'liuyifei');
+```
+增加或者减少:
+```php
+Db::table('userscore')->where('uid', 15)->setInc('score', 10);//增加
+Db::table('userscore')->where('uid', 15)->setDec('score', 15);//减少
+```
+5、删除操作<br>
+按照主键删除:
+```php
+Db::table('userinfo')->delete(18);
+Db::table('userinfo')->delete([8,9]);
+```
+按照条件删除:
+```php
+Db::table('userinfo')->where('uid', 13)->delete();
+```
