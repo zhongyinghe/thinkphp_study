@@ -5,3 +5,5 @@
 * 5 [请求](https://github.com/zhongyinghe/thinkphp_study/blob/master/request.md)
 * 6 [数据库](#)
 * 6.1 [数据库配置](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_conf.md)
+* 6.2 [数据库操作](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_operate.md)
+* 6.3 [数据查询](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_where.md)
