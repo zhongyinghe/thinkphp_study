@@ -29,3 +29,61 @@ dump($type);
 $pk = Db::getTableInfo('userinfo', 'pk');
 dump($pk);
 ```
+5、查询语法<br>
+eq:
+```php
+where('id','eq',100);
+where('id','=',100);
+where('id',100);
+```
+neq:
+```php
+where('id','neq',100);
+where('id','<>',100);
+```
+gt:
+```php
+where('id','gt',100);
+where('id','>',100);
+```
+egt:
+```php
+where('id','egt',100);
+where('id','>=',100);
+```
+lt:
+```php
+where('id','lt',100);
+where('id','<',100);
+```
+elt:
+```php
+where('id','elt',100);
+where('id','<=',100);
+```
+[not]like:
+```php
+where('name','like','thinkphp%');
+where('name','like',['%think','php%'],'OR');
+```
+[not]between:
+```php
+where('id','between','1,8');
+where('id','not in',[1,5,8]);
+```
+[not]null:
+```php
+where('name', null);
+where('title','null');
+where('name','not null');
+where('title','=', 'null');
+where('name','=', 'not null');
+```
+exp表达式:
+```php
+where('id','in','1,3,8');
+```
+改成这样:
+```php
+where('id','exp',' IN (1,3,8) ');
+```
