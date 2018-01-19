@@ -87,3 +87,25 @@ where('id','in','1,3,8');
 ```php
 where('id','exp',' IN (1,3,8) ');
 ```
+6、where查询形式<br>
+1)表达式条件:
+```php
+$row = Db::table('userinfo')->where('username', 'like','%yi%')->where('uid',2)->select();
+```
+2)数组条件
+```php
+$map['username'] = 'liuyifei';
+$map['departname'] = '演艺部';
+$rows = Db::table('userinfo')->where($map)->select();
+dump($rows);
+
+$map = [];
+$map['uid'] = ['>', 1];
+$map['username'] = ['like', 'ab%'];
+$rows = Db::table('userinfo')->where($map)->select();
+dump($rows);
+```
+3)字符串条件
+```php
+$rows = Db::table('userinfo')->where("uid = 12 AND departname = 'AI'")->select();
+```
