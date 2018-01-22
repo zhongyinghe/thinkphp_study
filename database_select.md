@@ -75,3 +75,33 @@ $rs = Db::table('userinfo')->alias('u')->join('userscore s', 'u.uid = s.uid', 'L
  ```php
  $rs = Db::table('userinfo')->alias('u')->join('userscore s', 'u.uid = s.uid', 'RIGHT')->select();
  ```
+6、distinct用法
+```php
+$rs = Db::table('userinfo')->distinct(true)->field('username')->where('uid', '>', 19)->select();
+dump($rs);
+
+$rs = Db::table('userinfo')->field('distinct username')->where('uid', '>', 19)->select();
+dump($rs);
+```
+7、lock给数据库加锁
+```php
+Db::name('user')->where('id',1)->lock(true)->find();
+```
+8、cache
+```php
+//直接缓存
+$rs = Db::table('userinfo')->where('uid', 19)->cache(true)->find();
+//设置缓存时间
+$rs = Db::table('userinfo')->where('uid', 21)->cache(true,60)->find();
+//获取缓存数据
+$rs = Db::table('userinfo')->where('uid', 21)->cache('bpp',60)->find();
+dump($rs);
+$data = \think\Cache::get('bpp');
+dump($data);
+//更新缓存数据
+Db::table('userinfo')->where('uid', 21)->cache('bpp')->delete();
+```
+9、force强迫使用某索引
+```php
+Db::table('think_user')->force('user')->select();
+```
