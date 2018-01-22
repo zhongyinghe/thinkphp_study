@@ -109,3 +109,37 @@ dump($rows);
 ```php
 $rows = Db::table('userinfo')->where("uid = 12 AND departname = 'AI'")->select();
 ```
+7、高级查询<br>
+1)区间查询:
+```php
+$rs = Db::table('userinfo')->where('uid',['>', 6], ['<', 16])->select();
+dump($rs);
+```
+2)多条件查询:
+```php
+$rs = Db::table('userinfo')->where([
+	'uid' => [['>', 6],['<', 16]],
+	'username' => ['like', 'ab%'],
+	])->select();
+dump($rs);
+```
+3)闭包查询:
+```php
+$rs = Db::select(function($query){
+	$query->table('userinfo')->where([
+	'uid' => [['>', 6],['<', 16]],
+	'username' => ['like', 'ab%'],
+	]);
+});
+dump($rs);
+```
+4)query查询:
+```php
+$query = new \think\db\Query();
+$query->table('userinfo')->where([
+	'uid' => [['>', 6],['<', 16]],
+	'username' => ['like', 'ab%'],
+]);
+$rs = Db::select($query);
+dump($rs);
+```
