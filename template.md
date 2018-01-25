@@ -122,3 +122,48 @@ base.html文件(public/base.html):
  @ThinkPHP 版权所有
 </block>
 ```
+10、循环输出标签<br>
+1)volist:
+```
+<volist name="list" id="vo">
+	<{$vo.uid}>---<{$vo.username}>---<{$vo.departname}><br>
+</volist>
+
+<volist name="list" id="vo" offset="5" length="5">
+<{$vo.username}><br>
+</volist>
+
+//偶数
+<volist name="list" id="vo" mod="2">
+<eq name="mod" value="1">
+<{$vo.uid}>---<{$vo.username}><br>
+</eq>
+</volist>
+
+//每5个换行
+<volist name="list" id="vo" mod="5">
+<{$vo.username}>---
+<eq name="mod" value="4"><br></eq>
+</volist>
+
+//没有数据的显示
+<volist name="news" id="vo" empty="暂时没有数据">
+</volist>
+
+//显示第几个
+<volist name="list" id="vo" key="k">
+	<{$k}>---<{$vo.uid}>---<{$vo.username}>---<{$vo.departname}><br>
+</volist>
+```
+2)foreach使用
+```
+<foreach name="list" item="vo">
+	<{$vo.uid}>---<{$vo.username}><br>
+</foreach>
+```
+3)for使用
+```
+<for start="1" end="100" step="1">
+<{$i}><br>
+</for>
+```
