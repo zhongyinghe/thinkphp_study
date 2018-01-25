@@ -47,3 +47,41 @@ $datas = [
 ];
 
 $user->allowField(true)->saveAll($datas);//abc非表字段
+```
+2、更新操作<br>
+```php
+//一般更新
+$user = new User;
+$user->save(['created' => time()], ['uid' => 20]);
+
+//过滤更新
+$user = new User;
+$update = ['created' => time(), 'abc' => '123'];
+$user->allowField(true)->save($update, ['uid' => 25]);
+
+//指定字段更新
+$user = new User;
+$update = ['username' => 'gxx','created' => time(), 'abc' => '123'];
+$user->allowField(['username'])->save($update, ['uid' => 20]);
+
+//批量更新
+$user = new User;
+$update = [
+    ['uid' =>1, 'departname' => '圣战部', 'created' => time()],
+    ['uid' =>2, 'departname' => '圣战部', 'created' => time()],
+    ['uid' =>5, 'departname' => '圣战部', 'created' => time()],
+    ['uid' =>10, 'departname' => '圣战部', 'created' => time()],
+];
+$user->isUpdate()->saveAll($update);
+
+//条件更新
+$user = new User;
+$update = ['departname' => 'CS'];
+$user->where('uid', 'IN', [6,11,12,14])->update($update);
+
+//闭包更新
+$user = new User;
+$user->save(['departname' => '白种人'], function($query){
+    $query->where('uid', 23);
+});
+```
