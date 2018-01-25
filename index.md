@@ -10,3 +10,5 @@
 * 6.4 [数据select语句](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_select.md)
 * 6.5 [聚合查询和时间查询](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_sum_time.md)
 * 6.6 [子查询和事务支持](https://github.com/zhongyinghe/thinkphp_study/blob/master/database_last.md)
+* 7 [模型操作](https://github.com/zhongyinghe/thinkphp_study/blob/master/mode_crud.md)
+* 8 [视图](https://github.com/zhongyinghe/thinkphp_study/blob/master/view.md)
