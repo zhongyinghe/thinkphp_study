@@ -241,3 +241,22 @@ in不在范围内
 不为空
 </empty>
 ```
+13、加载资源文件
+```
+{load href="/static/js/common.js" /}
+{load href="/static/css/style.css" /}
+```
+14、嵌套标签
+```
+//注意:如果vo.sub为二维数组，则可以使用$sb.name;如果vo.sub为一维数组，则不可以使用$sb.name,而$sb代表每个值.
+<volist name="list" id="vo">
+	<volist name="vo['sub']" id="sb">
+		<{$sb}>
+	</volist>
+	<br>
+</volist>
+```
+15、使用原生php
+```
+<php>echo 'hello,template';</php>
+```
