@@ -167,3 +167,77 @@ base.html文件(public/base.html):
 <{$i}><br>
 </for>
 ```
+11、比较标签
+```
+<eq name="name" value="$val">
+123
+</eq>
+
+<eq name="name" value="abc">
+hello, abc
+<else/>
+hello, error
+</eq>
+```
+12、 条件判断<br>
+1)switch:
+```php
+<switch name="status">
+	<case value="1">状态1</case>
+	<case value="2">状态2</case>
+	<case value="3">状态3</case>
+	<default/>我是默认情况
+</switch>
+
+<switch name="Think.get.type">
+<case value="gif|png|jpg">图片格式</case>
+<default/>其他格式
+</switch>
+
+<switch name="status">
+	<case value="$val1">状态1</case>
+	<case value="$val2">状态2</case>
+	<case value="$val3">状态3</case>
+	<default/>我是默认情况
+</switch>
+```
+2)if:
+```php
+<if condition="($name egt 0) AND ($name elt 100)">
+正常
+<elseif condition="$name gt 100"/>
+不正常
+<else/>
+非法
+</if>
+```
+3)in:
+```
+<in name="id" value="$range">
+in在范围内
+<else/>
+in不在范围内
+</in>
+
+<in name="id" value="1,2,3,4">
+in在范围内
+<else/>
+in不在范围内
+</in>
+```
+4)between:
+```
+<between name="id" value="1, 10">
+在1、10之间
+<else/>
+不在之间
+</between>
+```
+5)empty:
+```
+<empty name="stus">
+为空
+<else/>
+不为空
+</empty>
+```
