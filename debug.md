@@ -79,7 +79,7 @@ echo Debug::getRangeMem('begin', 'end').'kb';//计算执行区间需要的内存
 // 数据库调试模式
 'debug'           => true,
 // 是否需要进行SQL性能分析
-'sql_explain'     => false,
+'sql_explain'     => true,
 ```
 这样会在日志文件中对sql语句进行:EXPLAIN sql<br>
 
