@@ -13,3 +13,4 @@
 * 7 [模型操作](https://github.com/zhongyinghe/thinkphp_study/blob/master/mode_crud.md)
 * 8 [视图](https://github.com/zhongyinghe/thinkphp_study/blob/master/view.md)
 * 9 [模板](https://github.com/zhongyinghe/thinkphp_study/blob/master/template.md)
+* 10 [日志和错误调试](https://github.com/zhongyinghe/thinkphp_study/blob/master/debug.md)
