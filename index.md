@@ -14,3 +14,4 @@
 * 8 [视图](https://github.com/zhongyinghe/thinkphp_study/blob/master/view.md)
 * 9 [模板](https://github.com/zhongyinghe/thinkphp_study/blob/master/template.md)
 * 10 [日志和错误调试](https://github.com/zhongyinghe/thinkphp_study/blob/master/debug.md)
+* 11 [验证数据](https://github.com/zhongyinghe/thinkphp_study/blob/master/validate.md)
