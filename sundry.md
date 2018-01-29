@@ -48,3 +48,51 @@ function getRedisObj() {
 	return \redis\Redis::getInstance($config, $attr);
 }
 ```
+3、session的配置(应用配置文件中)<br>
+1)默认配置
+```php
+'session'      => [
+	'id'             => '',
+	// SESSION_ID的提交变量,解决flash上传跨域
+	'var_session_id' => '',
+	// SESSION 前缀
+	'prefix'         => 'think',
+	// 驱动方式 支持redis memcache memcached
+	'type'           => '',
+	// 是否自动开启 SESSION
+	'auto_start'     => true,
+],
+```
+2)把session保存在redis中
+```php
+'session'       => [
+	'prefix'     => 'think',
+	'type'       => 'redis',
+	'auto_start' => true,
+	// redis主机
+	'host'       => '127.0.0.1',
+	// redis端口
+	'port'       => 6379,
+	// 密码
+	'password'   => '123456',
+],
+```
+3)使用session函数
+```php
+// 赋值（当前作用域）
+Session::set('name','thinkphp');
+// 赋值think作用域
+Session::set('name','thinkphp','think');
+// 取值（当前作用域）
+Session::get('name');
+// 取值think作用域
+Session::get('name','think');
+// 删除（当前作用域）
+Session::delete('name');
+// 删除think作用域下面的值
+Session::delete('name','think');
+// 清除session（当前作用域）
+Session::clear();
+// 清除think作用域
+Session::clear('think');
+```
