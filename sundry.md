@@ -169,3 +169,61 @@ html代码:
 </div>
 <{$list->render()}>
 ```
+7、文件上传<br>
+1)模板
+```html
+<form action="<{:url('index/sundry/upload')}>" enctype="multipart/form-data" method="post">
+<input type="file" name="image" /> <br> 
+<input type="submit" value="上传" /> 
+</form> 
+```
+```html
+<form action="<{:url('index/sundry/upload')}>" enctype="multipart/form-data" method="post">
+<input type="file" name="image[]" /> <br> 
+<input type="file" name="image[]" /> <br>
+<input type="file" name="image[]" /> <br> 
+<input type="submit" value="上传" /> 
+</form> 
+```
+2)处理程序
+```php
+if (Request::instance()->isGet()) {
+	return $this->fetch();
+}else {
+	$file = Request::instance()->file('image');
+	if ($file) {
+	$info = $file->validate(['size' => 1024*1024, 'ext' => 'jpg,png,gif'])->rule('myfilename')->move(ROOT_PATH . 'public' . DS . 'upload');
+		if ($info) {
+			echo $info->getExtension();
+			echo '<br>';
+			echo $info->getSaveName();
+			echo '<br>';
+			echo $info->getFileName();
+		} else {
+			// 上传失败获取错误信息
+			echo $file->getError();
+		}
+	}
+}
+```
+```php
+$files = Request::instance()->file('image');
+foreach($files as $file) {
+	$info = $file->move(ROOT_PATH . 'public' . DS . 'upload');
+	if($info) {
+	}else {
+		echo $file->getError();
+	}
+}
+```
+3)验证上传文件
+```php
+$info = $file->validate(['size' => 1024*1024, 'ext' => 'jpg,png,gif'])->move(ROOT_PATH . 'public' . DS . 'upload');
+```
+4)文件生成规则
+```php
+//默认的有md5、date、sha1
+$info = $file->rule('md5')->move(ROOT_PATH . 'public' . DS . 'upload');
+//可以自定义规则,然后在common.php文件中定义myfilename函数就可以了
+$info = $file->rule('myfilename')->move(ROOT_PATH . 'public' . DS . 'upload');
+```
