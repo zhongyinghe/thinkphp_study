@@ -275,6 +275,21 @@ $image->thumb(150,150)->save(ROOT_PATH . 'public' . DS . 'upload'.'/abc.png');
 //居中裁剪缩略图
 $image->thumb(150,150,\think\Image::THUMB_CENTER)->save(ROOT_PATH . 'public' . DS . 'upload'.'/abc456.png');
 ```
+缩略图参数说明:
+```
+//常量，标识缩略图等比例缩放类型
+const THUMB_SCALING   = 1; 
+//常量，标识缩略图缩放后填充类型
+const THUMB_FILLED    = 2; 
+//常量，标识缩略图居中裁剪类型
+const THUMB_CENTER    = 3; 
+//常量，标识缩略图左上角裁剪类型
+const THUMB_NORTHWEST = 4;
+//常量，标识缩略图右下角裁剪类型
+const THUMB_SOUTHEAST = 5; 
+//常量，标识缩略图固定尺寸缩放类型
+const THUMB_FIXED     = 6; 
+```
 2)添加水印
 ```php
 //添加水印
@@ -285,4 +300,25 @@ $image->water(ROOT_PATH . 'public' . DS . '/ic-lucky.png', \think\Image::WATER_N
 
 //文本水印
 $image->text('宝剑锋从磨砺出 梅花香自苦寒来', '1.ttf', 20, '#ffffff')->save(ROOT_PATH . 'public' . DS . 'upload'.'/text_image.png');
+```
+添加水印参数说明:
+```
+//常量，标识左上角水印
+const WATER_NORTHWEST = 1; 
+//常量，标识上居中水印
+const WATER_NORTH     = 2; 
+//常量，标识右上角水印
+const WATER_NORTHEAST = 3; 
+//常量，标识左居中水印
+const WATER_WEST      = 4; 
+//常量，标识居中水印
+const WATER_CENTER    = 5; 
+//常量，标识右居中水印
+const WATER_EAST      = 6; 
+//常量，标识左下角水印
+const WATER_SOUTHWEST = 7; 
+//常量，标识下居中水印
+const WATER_SOUTH     = 8; 
+//常量，标识右下角水印
+const WATER_SOUTHEAST = 9; 
 ```
