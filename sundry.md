@@ -115,3 +115,37 @@ Session::clear('think');
 	'setcookie' => true,
 ],
 ```
+5、多语言设置<br>
+在application下新建lang目录,然后新增zh-cn.php、en-us.php文件，文件如下:
+```php
+<?php 
+//zh-cn.php文件
+return [
+	'user_name' => '用户名',
+];
+```
+```php
+<?php 
+//en-us.php文件
+return [
+	'user_name' => 'UserName',
+];
+```
+在应用配置上进行如下配置:
+```php
+// 是否开启多语言
+'lang_switch_on'         => true,
+// 默认语言
+'default_lang'           => 'zh-cn',
+```
+注意事项:
+```
+'default_lang' => 'en-us'
+是在
+'lang_switch_on' => false,
+才会生效的，
+开启了多语言，就会变成自动侦测
+１.　是否有$_GET['lang']
+２.　识别$_SERVER['HTTP_ACCEPT_LANGUAGE']中的第一个语言
+因为大家在国内，所以侦测到的都是zh-cn
+```
