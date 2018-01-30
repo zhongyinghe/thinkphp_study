@@ -227,3 +227,62 @@ $info = $file->rule('md5')->move(ROOT_PATH . 'public' . DS . 'upload');
 //可以自定义规则,然后在common.php文件中定义myfilename函数就可以了
 $info = $file->rule('myfilename')->move(ROOT_PATH . 'public' . DS . 'upload');
 ```
+8、验证码<br>
+1)验证码类在哪里?如何引入?
+```
+//验证码类在vendor/topthink/think-captcha目录
+use think\captcha\Captcha;//这样引入
+```
+2)如何生存验证码
+```html
+//模板文件
+<div><img src="<{:url('index/sundry/imgCode')}>" alt="captcha" onclick="this.src='<{:url('index/sundry/imgCode')}>'+'?'+Math.random()" /></div>
+```
+```php
+//生存函数
+$config = [
+	'codeSet' => '0123456789',
+];
+$captcha = new Captcha($config);
+return $captcha->entry(1);
+```
+```php
+//类似这样的验证
+$code = 'ffpdv';
+$captcha = new Captcha();
+$rs = $captcha->check($code, 1);
+dump($rs);
+```
+3)有哪些重要的配置?
+```
+codeSet
+useZh
+zhSet
+length
+```
+注意事项:
+```
+在没有重新点击生存新的验证码之前，除非验证正确，否则不清除保存的验证码
+```
+9、图片处理<br>
+1)缩略图
+```php
+$image = \think\Image::open(Request::instance()->file('image'));
+
+//生成缩略图
+$image->thumb(150,150)->save(ROOT_PATH . 'public' . DS . 'upload'.'/abc.png');
+
+//居中裁剪缩略图
+$image->thumb(150,150,\think\Image::THUMB_CENTER)->save(ROOT_PATH . 'public' . DS . 'upload'.'/abc456.png');
+```
+2)添加水印
+```php
+//添加水印
+$image->water(ROOT_PATH . 'public' . DS . '/ic-lucky.png', \think\Image::WATER_NORTHWEST)->save(ROOT_PATH . 'public' . DS . 'upload'.'/water_img.png');
+
+//添加有透明度的水印
+$image->water(ROOT_PATH . 'public' . DS . '/ic-lucky.png', \think\Image::WATER_NORTHWEST, 50)->save(ROOT_PATH . 'public' . DS . 'upload'.'/alpha_image.png');
+
+//文本水印
+$image->text('宝剑锋从磨砺出 梅花香自苦寒来', '1.ttf', 20, '#ffffff')->save(ROOT_PATH . 'public' . DS . 'upload'.'/text_image.png');
+```
