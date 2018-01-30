@@ -149,3 +149,23 @@ return [
 ２.　识别$_SERVER['HTTP_ACCEPT_LANGUAGE']中的第一个语言
 因为大家在国内，所以侦测到的都是zh-cn
 ```
+6、分页<br>
+php代码:
+```php
+$list = Db::table('userinfo')->paginate(10);
+$this->assign([
+	'list' => $list,
+]);
+return $this->fetch();
+```
+html代码:
+```html
+<div>
+<ul>
+<volist name='list' id='user'>
+    <li><{$user.username}></li>
+</volist>
+</ul>
+</div>
+<{$list->render()}>
+```
