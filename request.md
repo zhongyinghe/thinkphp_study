@@ -216,3 +216,11 @@ http://serverName/index.php/index/blog/archive/2018/06
 / 定义GET请求路由规则 并设置3600秒的缓存
 Route::get('new/:id','News/read',['cache'=>3600]);
 ```
+15、设置thinkphp5.0跨域请求<br>
+在入口文件中，或者在基础控制器中如下设置
+```
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-Requested-With');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE');
+header('Access-Control-Max-Age: 3600');
+```
